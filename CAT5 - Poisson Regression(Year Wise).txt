@@ -1,0 +1,86 @@
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Workspace loaded from ~/.RData]
+
+> data=read.csv("cat5.csv")
+> d1(,nrow=23,ncol=2)
+Error in d1(, nrow = 23, ncol = 2) : could not find function "d1"
+> d1=matrix(,nrow=23,ncol=2)
+> for(x in 1:23){
++     d1[x,1]=as.numeric(unlist(data[x,3]))
++     d1[x,2]=as.numeric(unlist(data[x,1]))
++ }
+> View(d1)
+> model1=glm(d1[,2]~d1[,1],family = poisson)
+> summary(model1)
+
+Call:
+glm(formula = d1[, 2] ~ d1[, 1], family = poisson)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.9010  -0.3276   0.2363   0.4110   0.8062  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept) 1.424392   0.150619   9.457   <2e-16 ***
+d1[, 1]     0.023721   0.002697   8.795   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 95.644  on 22  degrees of freedom
+Residual deviance: 10.780  on 21  degrees of freedom
+AIC: 109.27
+
+Number of Fisher Scoring iterations: 4
+
+> d2=matrix(,nrow=10,ncol=2)
+> d3=matrix(,nrow=10,ncol=2)
+> d4=matrix(,nrow=10,ncol=2)
+> d2=matrix(,nrow=33,ncol=2)
+> d3=matrix(,nrow=33,ncol=2)
+> d4=matrix(,nrow=33,ncol=2)
+> for(x in 1:33){
++     d2[x,1]=as.numeric(unlist(data[x,3]))
++     d3[x,1]=as.numeric(unlist(data[x,3]))
++     d4[x,1]=as.numeric(unlist(data[x,3]))
++ }
+> View(d2)
+> 
+> for(x in 1:10){
++     
++     d2[x,2]=(0.023721*d2[x,1])+1.424392
++     d3[x,2]=(0.021024*d3[x,1])+1.273773
++     d4[x,2]=(0.026418*d4[x,1])+1.575011
++ }
+> 
+> for(x in 1:33){
++     
++     d2[x,2]=(0.023721*d2[x,1])+1.424392
++     d3[x,2]=(0.021024*d3[x,1])+1.273773
++     d4[x,2]=(0.026418*d4[x,1])+1.575011
++ }
+> d2[,2]=exp(d2[,2])
+> d3[,2]=exp(d3[,2])
+> d4[,2]=exp(d4[,2])
+> plot(data$Year,data$No.,type="l")
+> lines(d2[,1],d2[,2],col="red")
+> lines(d3[,1],d3[,2],col="blue")
+> lines(d4[,1],d4[,2],col="green")
